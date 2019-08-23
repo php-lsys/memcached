@@ -2,7 +2,7 @@
 	"name": "lsys/memcached",
 	"type" : "library",
 	"license": "Apache-2.0",
-	"version" : "2.0.0",
+
 	"description" : "lsys module memcached",
 	"autoload":{
 		"psr-4": {
@@ -12,6 +12,6 @@
     "require": {
      	"php": ">=5.5",
      	"ext-memcached": "*",
-     	"lsys/config":"~2.0.0"
+     	"lsys/config":"~2.1.0"
 	}
 }
