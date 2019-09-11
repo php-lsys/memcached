@@ -1,0 +1,28 @@
+language: php
+services:
+  - mysql
+php:
+  - 7.1
+  
+before_install:
+  - sudo apt-get install  memcached
+  - sudo service  memcached start
+  - sudo apt install libmemcached-dev
+  - wget http://pecl.php.net/get/memcached-3.1.3.tgz
+    && tar zfvx memcached-3.1.3.tgz
+    && cd memcached-3.1.3
+    && phpize
+    && ./configure
+    && make
+    && sudo make install
+    && cd ..
+  - echo "extension=memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  
+before_script:
+  - composer install --dev
+  - cd tests
+script: 
+  - ../vendor/bin/phpunit -v
+after_script:
+  - cd ..
+  - travis_retry vendor/bin/php-coveralls -x tests/report/clover.xml -o tests/report/coveralls.json -v
